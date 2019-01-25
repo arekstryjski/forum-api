@@ -4,7 +4,7 @@ import { callDynamoDB } from '../libs/dynamodb';
 import { failure, success } from '../libs/http-response';
 
 
-export const main = async event => { //(event, context) => {
+export const main = async event => {
     const data = JSON.parse(event.body);
     const params = {
         TableName: "notes",

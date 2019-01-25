@@ -1,8 +1,20 @@
 {
-  "plugins": ["source-map-support", "transform-runtime"],
+  "plugins": [
+    ["@babel/plugin-proposal-optional-chaining"],
+    ["@babel/plugin-proposal-do-expressions"],
+    ["@babel/plugin-proposal-object-rest-spread"],
+    "lodash",
+    "source-map-support",
+    "transform-runtime"
+  ],
   "presets": [
-    ["env", { "node": "8.10" }],
-    "stage-3"
+    ["@babel/env", {
+      "targets": {
+        "node": "8.10"
+      },
+      "modules": false,
+      "loose": true
+    }]
   ]
 }
 

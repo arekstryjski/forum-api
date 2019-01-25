@@ -127,3 +127,16 @@ To add environment variables to your project
 ### Maintainers
 
 Serverless Node.js Starter is maintained by Frank Wang ([@fanjiewang](https://twitter.com/fanjiewang)) & Jay V ([@jayair](https://twitter.com/jayair)). [**Subscribe to our newsletter**](http://eepurl.com/cEaBlf) for updates. Send us an [email](mailto:contact@anoma.ly) if you have any questions.
+
+
+# Tutorial console tests
+
+## Notes
+
+    serverless invoke local --function create --path mocks/create-event.json
+    serverless invoke local --function get --path mocks/get-event.json
+    serverless invoke local --function update --path mocks/update-event.json
+    serverless invoke local --function list --path mocks/list-event.json
+    serverless invoke local --function delete --path mocks/delete-event.json
+    
+    

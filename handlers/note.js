@@ -1,10 +1,9 @@
 import uuid from 'uuid';
 
-import { callDynamoDB } from '../libs/dynamodb';
-import { failure, success } from '../libs/http-response';
+import { del, get, put, query, update } from '../libs/dynamodb';
 
 
-export const create = async event => {
+export const createNote = event => {
     const data = JSON.parse(event.body);
     const params = {
         TableName: "notes",
@@ -17,17 +16,10 @@ export const create = async event => {
         }
     };
 
-    try {
-        await callDynamoDB("put", params);
-        return success(params.Item);
-    }
-    catch (e) {
-        console.log(e);
-        return failure({ status: false });
-    }
+    return put(params);
 };
 
-export const get = async event => {
+export const getNote = event => {
     const params = {
         TableName: "notes",
         Key: {
@@ -36,14 +28,49 @@ export const get = async event => {
         }
     };
 
-    try {
-        const result = await callDynamoDB('get', params);
-        return result.Item
-            ? success(result.Item)
-            : failure({ status: false, error: "Item not found." });
-    }
-    catch (e) {
-        console.log(e);
-        return failure({ status: false });
-    }
+    return get(params);
+};
+
+export const listNotes = event => {
+    const params = {
+        TableName: 'notes',
+        KeyConditionExpression: 'userId = :userId',
+        ExpressionAttributeValues: {
+            ':userId': event.requestContext.identity.cognitoIdentityId
+        }
+    };
+
+    return query(params);
+};
+
+
+export const updateNote = event => {
+    const data = JSON.parse(event.body);
+    const params = {
+        TableName: "notes",
+        Key: {
+            userId: event.requestContext.identity.cognitoIdentityId,
+            noteId: event.pathParameters.id
+        },
+        UpdateExpression: "SET content = :content, attachment = :attachment",
+        ExpressionAttributeValues: {
+            ":attachment": data.attachment || null,
+            ":content": data.content || null
+        },
+        ReturnValues: "ALL_NEW"
+    };
+
+    return update(params);
+};
+
+export const deleteNote = event => {
+    const params = {
+        TableName: "notes",
+        Key: {
+            userId: event.requestContext.identity.cognitoIdentityId,
+            noteId: event.pathParameters.id
+        }
+    };
+
+    return del(params);
 };

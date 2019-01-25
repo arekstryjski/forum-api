@@ -1,4 +1,4 @@
-# NOTE: update this with your service name
+# NOTE: updateNote this with your service name
 service: forum-api
 
 # Use the serverless-webpack plugin to transpile ES6
@@ -33,7 +33,7 @@ functions:
   #     domain api call
   # - authorizer: authenticate using the AWS IAM role
   create:
-    handler: handlers/note.create
+    handler: handlers/note.createNote
     events:
       - http:
           path: notes
@@ -42,13 +42,49 @@ functions:
           authorizer: aws_iam
 
   get:
-      # Defines an HTTP API endpoint that calls the main function in get.js
+      # Defines an HTTP API endpoint that calls the main function in getNote.js
       # - path: url path is /notes/{id}
       # - method: GET request
-      handler: handlers/note.get
+      handler: handlers/note.getNote
       events:
         - http:
             path: notes/{id}
-            method: get
+            method: getNote
+            cors: true
+            authorizer: aws_iam
+
+  list:
+      # Defines an HTTP API endpoint that calls the main function in listNotes.js
+      # - path: url path is /notes
+      # - method: GET request
+      handler: handlers/note.listNotes
+      events:
+        - http:
+            path: notes
+            method: getNote
+            cors: true
+            authorizer: aws_iam
+
+  update:
+      # Defines an HTTP API endpoint that calls the main function in updateNote.js
+      # - path: url path is /notes/{id}
+      # - method: PUT request
+      handler: handlers/note.updateNote
+      events:
+        - http:
+            path: notes/{id}
+            method: put
+            cors: true
+            authorizer: aws_iam
+
+  delete:
+      # Defines an HTTP API endpoint that calls the main function in delete.js
+      # - path: url path is /notes/{id}
+      # - method: DELETE request
+      handler: handlers/note.deleteNote
+      events:
+        - http:
+            path: notes/{id}
+            method: delete
             cors: true
             authorizer: aws_iam

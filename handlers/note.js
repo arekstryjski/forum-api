@@ -12,6 +12,7 @@ export const createNote = event => {
             noteId: uuid.v1(),
             content: data.content,
             attachment: data.attachment,
+            nowy: data.extra,
             createdAt: Date.now()
         }
     };

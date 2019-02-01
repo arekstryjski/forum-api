@@ -52,3 +52,4 @@ env.yml
 .idea
 /.idea/
 /forum-api.iml
+/bin/

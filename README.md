@@ -139,4 +139,18 @@ Serverless Node.js Starter is maintained by Frank Wang ([@fanjiewang](https://tw
     serverless invoke local --function list --path mocks/list-event.json
     serverless invoke local --function delete --path mocks/delete-event.json
     
+    endpoints:
+      POST - https://ubxdud2268.execute-api.us-east-1.amazonaws.com/dev/notes
+      GET - https://ubxdud2268.execute-api.us-east-1.amazonaws.com/dev/notes/{id}
+      GET - https://ubxdud2268.execute-api.us-east-1.amazonaws.com/dev/notes
+      PUT - https://ubxdud2268.execute-api.us-east-1.amazonaws.com/dev/notes/{id}
+      DELETE - https://ubxdud2268.execute-api.us-east-1.amazonaws.com/dev/notes/{id}
+    functions:
+      create: forum-api-dev-create
+      get: forum-api-dev-get
+      list: forum-api-dev-list
+      update: forum-api-dev-update
+      delete: forum-api-dev-delete
+
+    
     
